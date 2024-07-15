@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="FADOR: Fast and Accurate Dynamic Object Removal for Indoor Scenes">
+  <meta name="keywords" content="IPAL">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IPAL: Infinite Planes as Lines for Consistent Mapping in Indoor Multi-floor Environments</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="./static/images/icon.png">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+  <script src="./static/js/video_comparison.js"></script>
+
+  <script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>        
+  
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
+});
+</script>
+
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-body", style="padding-bottom: 0rem;">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">FADOR: Fast and Accurate Dynamic Object Removal for Indoor Scenes</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              Xiaofeng Jin<sup>1</sup>&nbsp;&nbsp;</span>
+            <span class="author-block">
+              Jianfei Ge<sup>1*</sup>&nbsp;&nbsp;</span>
+            <span class="author-block">
+               Jiangjian Xiao<sup>1</sup>&nbsp;&nbsp;</span>
+            </span>
+            <span class="author-block">
+              Bo Zhao<sup>2,3</sup>&nbsp;&nbsp;</span>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block", style="color:#726f6f"><sup>1</sup>Ningbo Institute of Materials Technology Engineering,CAS&nbsp;&nbsp;&nbsp;</span>
+            <span class="author-block", style="color:#726f6f"><sup>2</sup>China North Vehicle Research Institute.&nbsp;&nbsp;&nbsp;&nbsp;</span>
+            <span class="author-block", style="color:#726f6f"><sup>3</sup>Xi'an Jiaotong University.&nbsp;&nbsp;&nbsp;&nbsp;</span>
+
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block", style="font-size: 15px;color:#726f6f"> (email:jinxiaofeng, gejianfei, xiaojj@nimte.ac.cn)</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block", style="font-size: 15px;color:#726f6f"><sup>*&nbsp;</sup>Corresponding author&nbsp;&nbsp;&nbsp;&nbsp;</span>
+          </div>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block", style="color:#367DBD";>IEEE Transactions on
+Instrumentation & Measurement 2024</span>
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://ieeexplore.ieee.org/stamp/stamp.jsp?tp=&arnumber=10399936"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              <!-- <span class="link-block">
+                <a href="#"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code (Soon)</span>
+                  </a>
+              </span> -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<style>  .center-container {
+    display: flex;
+    justify-content: center;
+  }
+</style>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+
+        <img alt="Architecture" src="./static/images/pipeline.png" width="100%"/>
+<!--        新增一个图片，放上下两张图-->
+
+      </div>
+    </div>
+    <div class="content has-text-justified">
+      <p>
+        LiDAR point cloud is an important component of 3D reconstruction, and high-precision 3D point clouds provide accurate depth and scene structure. However, dynamic objects can form ghosting in the point cloud during data acquisition, causing data corruption. Most researchers have used the occlusion relationship between dynamic and static objects to achieve simple trajectory removal of dynamic objects in outdoor open scenes. However, in indoor scenes, due to the complex occlusion relationship, it is not possible to ensure the fine-grained, efficiency, and accuracy of the removal to achieve practical application levels. Here we proposed an offline point cloud dynamic object removal method based on time visibility. We believe that dynamic objects can be regarded as a more obvious noise point, and it is feasible to distinguish dynamic and static objects from the time dimension under the premise of their unstable observation. Therefore, we proposed a multi-stage method for dynamic object removal. Specifically, we use hash-encoded voxels to express local space, encode local space's time sequence occupancy count as a unified vector, and summarize comprehensive indicators of observation continuity and repeatability. Using this index to achieve dynamic object removal. In addition, we proposed a density-based binary classification method for more fine-grained removal tasks. Finally, we have validated the proposed algorithm's robustness, advancement, and efficiency in multiple challenging indoor scenes.
+      </p>
+    </div>
+<!--    --><div class="center-container">
+  <!-- 居中显示的图片 -->
+  <img alt="Motivation" src="./static/images/example1.jpg" width="50%"/>
+    <!-- <img alt="Motivation" src="./static/images/planer.jpg" width="100%"/> -->
+</div>
+  </section>
+
+
+
+<section class="section">
+  <div class="columns is-centered has-text-centered">
+    <div class="column is-three-fifths">
+      <h2 class="title is-3">Comparison With SOTA</h2>
+        <!--    --><div class="center-container">
+  <!-- 居中显示的图片 -->
+  <img alt="Motivation" src="./static/images/SOTA.png" width="100%"/>
+
+    <!-- <img alt="Motivation" src="./static/images/图片17.png" width="50%"/> -->
+</div>
+<div class="content has-text-justified">
+  <p>
+    Comparison experiment. We compared the dynamic object removal effects of the original map, ERAOSR, Removert, Peopleremover, and our method on different scenes(From left to right, they are the staircase, lounge, long hall, and one-story separately). The red box shows the dynamic object and the one-story local zoom map depicts the footprint point cloud.
+  </p>
+</div>
+    </div>
+  </div>
+</div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+      <h2 class="title is-3">Ablation Studying</h2>
+      <!-- 居中显示带序号的图片 -->
+      <div class="center-container">
+        <div class="image-with-label">
+          <img alt="Motivation" src="./static/images/ablation.png" width="100%">
+          <!-- <span class="label">(a)</span> -->
+        </div>
+        <!-- <div class="image-with-label">
+          <img alt="Motivation" src="./static/images/Fig12_2_00.png" width="50%">
+          <span class="label">(b)</span>
+        </div>
+        <div class="image-with-label">
+          <img alt="Motivation" src="./static/images/Fig12_3_00.png" width="50%">
+          <span class="label">(c)</span>
+        </div>
+        <div class="image-with-label">
+          <img alt="Motivation" src="./static/images/Fig12_4_00.png" width="50%">
+          <span class="label">(d)</span>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <div class="content has-text-justified">
+    <p>
+      Adaptive thresholding method ablation experiments.
+      (a) using uniform thresholding method (b) based on adaptive
+      thresholding
+    </p>
+  </div>
+</div>
+</section>
+
+<style>
+  .image-with-label {
+    display: inline-block;
+    position: relative;
+    margin-right: -40px;
+  }
+
+  .image-with-label .label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    font-size: 0.8em;
+    line-height: 1;
+    color: #666;
+  }
+</style>
+
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{jin2024fador,
+  title={FADOR: Fast and Accurate Dynamic Object Removal for Indoor Scenes},
+  author={Jin, Xiaofeng and Ge, Jianfei and Xiao, Jiangjian and Zhao, Bo},
+  journal={IEEE Transactions on Instrumentation and Measurement},
+  year={2024},
+  publisher={IEEE}
+}</code></pre>
+  </div>
+</section>
+
+
+<!--<footer class="footer">-->
+<!--  <div class="container">-->
+<!--    <div class="content has-text-centered">-->
+<!--    </div>-->
+<!--    <div class="columns is-centered">-->
+<!--      <div class="column is-8">-->
+<!--        <div class="content">-->
+<!--          <p>-->
+<!--            We thank the authors of <a-->
+<!--            href="https://github.com/nerfies/nerfies.github.io">Nerfies</a> that kindly open sourced the template of this website.-->
+<!--            The html script of video comparison is borrowed from <a-->
+<!--            href="https://dorverbin.github.io/refnerf/">Ref-NeRF</a>.-->
+<!--          </p>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</footer>-->
+
+
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.video-compare-container').forEach(function (container, index) {
+      console.log("Index of the container:", index);
+      container.addEventListener('click', function () {
+        if (index === 0) {
+          this.classList.toggle('expand-right');
+        } else if (index === 2) {
+          this.classList.toggle('expand-left');
+        } else {
+          this.classList.toggle('expanded');
+        }
+      });
+    });
+  });
+</script>
+
+</body>
+</html>
